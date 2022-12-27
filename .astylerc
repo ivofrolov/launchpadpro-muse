@@ -1,0 +1,10 @@
+# Artistic Style config that tries to follow GNU coding standards
+# 
+# References:
+# http://astyle.sourceforge.net/astyle.html
+# https://www.gnu.org/prep/standards/html_node/Formatting.html#Formatting
+
+--style=gnu
+--max-code-length=79
+--indent=spaces=2
+-n
