@@ -13,7 +13,7 @@ struct shift_register
 
 void sht_reg_init(shift_register* sht_reg);
 
-void sht_reg_pulse(shift_register* sht_reg, uint8_t state);
+void sht_reg_pulse(shift_register* sht_reg, uint8_t feed);
 
 uint8_t sht_reg_get(shift_register* sht_reg, uint8_t index);
 
