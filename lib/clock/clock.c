@@ -13,11 +13,14 @@ void clock_set_beat_rate(clock* clk, uint8_t beat_rate)
 
 uint8_t clock_tick(clock* clk)
 {
-  if ((clk->counter)++ == 0)
-    return 1;
+  if (clk->beat_rate == 0)
+    return 0;
 
   if (clk->counter == clk->beat_rate)
     clk->counter = 0;
+
+  if ((clk->counter)++ == 0)
+    return 1;
 
   return 0;
 }
