@@ -48,10 +48,10 @@ uint8_t muse_state(muse* machine, uint8_t position)
 uint8_t muse_sliders_state(muse* machine,
                            enum slider s1, enum slider s2, enum slider s3, enum slider s4)
 {
-  uint8_t state = muse_state(machine, machine->sliders[s1]);
-  state |= (muse_state(machine, machine->sliders[s2]) << 1);
-  state |= (muse_state(machine, machine->sliders[s3]) << 2);
-  state |= (muse_state(machine, machine->sliders[s4]) << 3);
+  uint8_t state = muse_state(machine, machine->sliders[s4]);
+  state |= (muse_state(machine, machine->sliders[s3]) << 1);
+  state |= (muse_state(machine, machine->sliders[s2]) << 2);
+  state |= (muse_state(machine, machine->sliders[s1]) << 3);
   return state;
 }
 
@@ -66,12 +66,13 @@ void muse_init(muse* machine)
 /* Advances machine one step forward. */
 uint8_t muse_pulse(muse* machine)
 {
+  uint8_t theme = muse_sliders_state(machine, W, X, Y, Z);
+
   bin_ctr_pulse(&(machine->bin_ctr));
   // advance triple counter and shift register on the whole step
-  if (!bin_ctr_get(&(machine->bin_ctr), 0))
+  if (bin_ctr_get(&(machine->bin_ctr), 0) == 0)
     {
       tri_ctr_pulse(&(machine->tri_ctr));
-      uint8_t theme = muse_sliders_state(machine, W, X, Y, Z);
       sht_reg_pulse(&(machine->sht_reg), four_bit_parity(theme));
     }
 
